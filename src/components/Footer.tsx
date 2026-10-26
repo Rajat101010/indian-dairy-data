@@ -1,141 +1,247 @@
+
 import Link from "next/link";
+
+const exploreLinks = [
+    ["Read", "/read"],
+    ["Analysis", "/analysis"],
+    ["Solutions", "/solutions/price-intelligence"],
+    ["Start now", "/start-now"],
+];
+
+const companyLinks = [
+    ["About the Consortium", "/company"],
+    ["Research Network", "/company#research-network"],
+    ["Partners", "/company#partners"],
+    ["Get in Touch", "/company#get-in-touch"],
+    ["Admin", "/admin/login"],
+];
 
 export default function Footer() {
     return (
-        <footer
-            style={{
-                background: "#092953",
-                color: "white",
-                padding: "52px 0 24px",
-                marginTop: 60,
-            }}
-        >
+        <footer className="site-footer">
+            <style>{`
+                .site-footer {
+                    background: #092953;
+                    color: white;
+                    padding: 48px 0 22px;
+                    margin-top: 48px;
+                    overflow-wrap: anywhere;
+                }
+
+                .footer-grid {
+                    display: grid;
+                    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+                    gap: 36px;
+                }
+
+                .footer-brand {
+                    font-size: 20px;
+                    line-height: 1.4;
+                    display: inline-block;
+                }
+
+                .footer-description {
+                    color: #c5d7ef;
+                    max-width: 400px;
+                    line-height: 1.8;
+                    margin: 14px 0;
+                    font-size: 14px;
+                }
+
+                .footer-notice {
+                    color: #ffdf70;
+                    font-size: 12px;
+                    line-height: 1.7;
+                }
+
+                .footer-heading {
+                    display: block;
+                    font-size: 15px;
+                    margin-bottom: 10px;
+                }
+
+                .footer-links {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .footer-link {
+                    display: inline-flex;
+                    align-items: center;
+                    min-height: 40px;
+                    padding: 7px 0;
+                    color: #c5d7ef;
+                    font-size: 14px;
+                    line-height: 1.5;
+                    text-decoration: none;
+                    transition: color 0.2s ease;
+                }
+
+                .footer-link:hover {
+                    color: #ffdf70;
+                }
+
+                .footer-link:focus-visible {
+                    outline: 2px solid #ffdf70;
+                    outline-offset: 4px;
+                    border-radius: 2px;
+                }
+
+                .footer-bottom {
+                    border-top: 1px solid #24456e;
+                    margin-top: 36px;
+                    padding-top: 18px;
+                    font-size: 12px;
+                    line-height: 1.8;
+                    color: #b4c7e0;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    gap: 12px 24px;
+                    flex-wrap: wrap;
+                }
+
+                .footer-bottom span {
+                    min-width: 0;
+                }
+
+                @media (max-width: 768px) {
+                    .site-footer {
+                        padding: 36px 0 20px;
+                        margin-top: 36px;
+                    }
+
+                    .footer-grid {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        gap: 28px 24px;
+                    }
+
+                    .footer-brand-section {
+                        grid-column: 1 / -1;
+                    }
+
+                    .footer-description {
+                        max-width: 100%;
+                    }
+
+                    .footer-bottom {
+                        margin-top: 28px;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .site-footer {
+                        padding: 30px 0 18px;
+                        margin-top: 28px;
+                    }
+
+                    .footer-grid {
+                        grid-template-columns: minmax(0, 1fr);
+                        gap: 24px;
+                    }
+
+                    .footer-brand-section {
+                        grid-column: auto;
+                    }
+
+                    .footer-brand {
+                        font-size: 19px;
+                    }
+
+                    .footer-description {
+                        font-size: 14px;
+                        line-height: 1.75;
+                        margin: 12px 0;
+                    }
+
+                    .footer-heading {
+                        font-size: 15px;
+                        margin-bottom: 6px;
+                    }
+
+                    .footer-link {
+                        min-height: 42px;
+                        width: 100%;
+                        padding: 9px 0;
+                    }
+
+                    .footer-bottom {
+                        flex-direction: column;
+                        gap: 8px;
+                        margin-top: 24px;
+                        padding-top: 16px;
+                        font-size: 11px;
+                    }
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    .footer-link {
+                        transition: none;
+                    }
+                }
+            `}</style>
+
             <div className="container">
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "2fr 1fr 1fr",
-                        gap: 32,
-                    }}
-                >
-                    <div>
-                        <b style={{ fontSize: 20 }}>
+                <div className="footer-grid">
+                    {/* BRAND AND DESCRIPTION */}
+
+                    <div className="footer-brand-section">
+                        <b className="footer-brand">
                             Indian Dairy Consortium
                         </b>
 
-                        <p
-                            style={{
-                                color: "#c5d7ef",
-                                maxWidth: 400,
-                                lineHeight: 1.7,
-                            }}
-                        >
+                        <p className="footer-description">
                             A market-intelligence concept for structured
                             dairy-sector evidence, transparent methods and
                             better-informed decisions.
                         </p>
 
-                        <small style={{ color: "#ffdf70" }}>
+                        <small className="footer-notice">
                             Sample concept site · no live market series loaded
                         </small>
                     </div>
 
-                    <div>
-                        <b>Explore</b>
+                    {/* EXPLORE LINKS */}
 
-                        {[
-                            ["Read", "/read"],
-                            ["Analysis", "/analysis"],
-                            ["Solutions", "/solutions/price-intelligence"],
-                            ["Start now", "/start-now"],
-                        ].map(([title, href]) => (
-                            <Link
-                                key={title}
-                                href={href}
-                                style={{
-                                    display: "block",
-                                    marginTop: 12,
-                                    color: "#c5d7ef",
-                                }}
-                            >
-                                {title}
-                            </Link>
-                        ))}
-                    </div>
+                    <nav aria-label="Explore">
+                        <b className="footer-heading">Explore</b>
 
-                    <div>
-                        <b>Company</b>
+                        <div className="footer-links">
+                            {exploreLinks.map(([title, href]) => (
+                                <Link
+                                    key={title}
+                                    href={href}
+                                    className="footer-link"
+                                >
+                                    {title}
+                                </Link>
+                            ))}
+                        </div>
+                    </nav>
 
-                        <Link
-                            href="/company"
-                            style={{
-                                display: "block",
-                                marginTop: 12,
-                                color: "#c5d7ef",
-                            }}
-                        >
-                            About the Consortium
-                        </Link>
+                    {/* COMPANY LINKS */}
 
-                        <Link
-                            href="/company#research-network"
-                            style={{
-                                display: "block",
-                                marginTop: 12,
-                                color: "#c5d7ef",
-                            }}
-                        >
-                            Research Network
-                        </Link>
+                    <nav aria-label="Company">
+                        <b className="footer-heading">Company</b>
 
-                        <Link
-                            href="/company#partners"
-                            style={{
-                                display: "block",
-                                marginTop: 12,
-                                color: "#c5d7ef",
-                            }}
-                        >
-                            Partners
-                        </Link>
-
-                        <Link
-                            href="/company#get-in-touch"
-                            style={{
-                                display: "block",
-                                marginTop: 12,
-                                color: "#c5d7ef",
-                            }}
-                        >
-                            Get in Touch
-                        </Link>
-
-                        <Link
-                            href="/admin/login"
-                            style={{
-                                display: "block",
-                                marginTop: 12,
-                                color: "#c5d7ef",
-                            }}
-                        >
-                            Admin
-                        </Link>
-                    </div>
+                        <div className="footer-links">
+                            {companyLinks.map(([title, href]) => (
+                                <Link
+                                    key={title}
+                                    href={href}
+                                    className="footer-link"
+                                >
+                                    {title}
+                                </Link>
+                            ))}
+                        </div>
+                    </nav>
                 </div>
 
-                <div
-                    style={{
-                        borderTop: "1px solid #24456e",
-                        marginTop: 40,
-                        paddingTop: 18,
-                        fontSize: 12,
-                        color: "#b4c7e0",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: 12,
-                        flexWrap: "wrap",
-                    }}
-                >
+                {/* COPYRIGHT AND DISCLAIMER */}
+
+                <div className="footer-bottom">
                     <span>
                         © {new Date().getFullYear()} Indian Dairy Consortium
                         {" "}· Sample platform

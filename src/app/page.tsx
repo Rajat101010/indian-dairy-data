@@ -28,10 +28,6 @@ async function setting(key: string, fallback: any) {
 }
 
 export default async function Home() {
-    // --------------------------------------------------
-    // Fetch homepage data
-    // --------------------------------------------------
-
     let brand = "Indian Dairy Consortium";
     let kpis: any = defaultKpis;
     let reads: any[] = [];
@@ -70,10 +66,6 @@ export default async function Home() {
         // Use fallback content if database queries fail.
     }
 
-    // --------------------------------------------------
-    // Capability cards
-    // --------------------------------------------------
-
     const cards = [
         {
             icon: ChartNoAxesCombined,
@@ -96,10 +88,6 @@ export default async function Home() {
             desc: "A consistent framework for field returns and state-level evidence.",
         },
     ];
-
-    // --------------------------------------------------
-    // Fallback solution content
-    // --------------------------------------------------
 
     const fallbackSolutions = [
         {
@@ -130,30 +118,701 @@ export default async function Home() {
 
     return (
         <>
-            {/* ================================================
-          HERO SECTION
-      ================================================ */}
+            <style>{`
+                *,
+                *::before,
+                *::after {
+                    box-sizing: border-box;
+                }
 
-            <section
-                className="line-art"
-                style={{
-                    padding: "86px 0 72px",
-                    position: "relative",
-                }}
-            >
-                <div
-                    className="container"
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns:
-                            "minmax(0, 1.08fr) minmax(300px, 0.92fr)",
-                        gap: 40,
-                        alignItems: "center",
-                    }}
-                >
-                    {/* Hero content */}
+                .home-hero {
+                    padding: 86px 0 72px;
+                    position: relative;
+                }
 
-                    <div>
+                .home-hero-grid {
+                    display: grid;
+                    grid-template-columns:
+                        minmax(0, 1.08fr)
+                        minmax(0, 0.92fr);
+                    gap: 40px;
+                    align-items: center;
+                }
+
+                .home-hero-copy {
+                    min-width: 0;
+                }
+
+                .home-hero-copy .h1 {
+                    margin: 22px 0;
+                    max-width: 700px;
+                    overflow-wrap: anywhere;
+                }
+
+                .home-hero-description {
+                    font-size: 18px;
+                    line-height: 1.8;
+                    color: #526783;
+                    max-width: 600px;
+                }
+
+                .home-hero-actions {
+                    display: flex;
+                    gap: 12px;
+                    flex-wrap: wrap;
+                    margin-top: 30px;
+                }
+
+                .home-hero-actions .btn {
+                    min-height: 46px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                }
+
+                .home-trust-note {
+                    margin-top: 25px;
+                    font-size: 12px;
+                    line-height: 1.7;
+                    color: #63758d;
+                }
+
+                .home-market-visual {
+                    min-width: 0;
+                    min-height: 360px;
+                    position: relative;
+                    border-radius: 30px;
+                    background: linear-gradient(
+                        145deg,
+                        #014AAC,
+                        #0b3471
+                    );
+                    padding: 24px;
+                    overflow: hidden;
+                    box-shadow: 0 28px 65px #014aac30;
+                }
+
+                .home-market-header {
+                    position: relative;
+                    color: white;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 12px;
+                }
+
+                .home-market-header h3 {
+                    font-size: 23px;
+                    margin: 8px 0;
+                }
+
+                .home-market-visual .sample-label {
+                    flex-shrink: 0;
+                    background: #ffbf00;
+                    color: #172033;
+                    padding: 7px 10px;
+                    border-radius: 8px;
+                    font-size: 11px;
+                    font-weight: 800;
+                }
+
+                .home-market-chart {
+                    position: relative;
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    margin-top: 26px;
+                    overflow: visible;
+                }
+
+                .home-workflow {
+                    position: relative;
+                    display: grid;
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                    gap: 10px;
+                    margin-top: 10px;
+                }
+
+                .home-workflow-item {
+                    min-width: 0;
+                    border: 1px solid #ffffff2a;
+                    background: #ffffff10;
+                    border-radius: 13px;
+                    padding: 12px;
+                    color: white;
+                }
+
+                .home-workflow-title {
+                    font-weight: 700;
+                    margin-top: 5px;
+                    overflow-wrap: anywhere;
+                }
+
+                .home-chart-caption {
+                    position: relative;
+                    font-size: 11px;
+                    line-height: 1.6;
+                    color: #d5e3f5;
+                    margin-bottom: 0;
+                }
+
+                .home-kpi-section {
+                    padding: 0 0 35px;
+                    margin-top: -1px;
+                    background: #f7faff;
+                }
+
+                .home-kpis {
+                    display: grid;
+                    grid-template-columns:
+                        repeat(auto-fit, minmax(180px, 1fr));
+                    gap: 14px;
+                }
+
+                .home-kpi-card {
+                    padding: 22px;
+                    border-radius: 16px;
+                    min-width: 0;
+                }
+
+                .home-kpi-value {
+                    font-size: 30px;
+                    font-weight: 850;
+                    color: #014AAC;
+                    overflow-wrap: anywhere;
+                }
+
+                .home-kpi-label {
+                    font-weight: 750;
+                    margin-top: 5px;
+                }
+
+                .home-kpi-note {
+                    display: block;
+                    line-height: 1.5;
+                    margin-top: 5px;
+                }
+
+                .home-section {
+                    padding-top: 64px;
+                    padding-bottom: 64px;
+                }
+
+                .home-section-intro {
+                    max-width: 680px;
+                    margin-bottom: 34px;
+                }
+
+                .home-section-intro h2 {
+                    margin: 14px 0;
+                }
+
+                .home-section-intro p {
+                    line-height: 1.8;
+                }
+
+                .home-capabilities,
+                .home-solutions {
+                    min-width: 0;
+                }
+
+                .home-capability-card {
+                    padding: 25px;
+                    min-width: 0;
+                }
+
+                .home-capability-card h3 {
+                    font-size: 19px;
+                    color: #123762;
+                    margin: 20px 0 9px;
+                }
+
+                .home-capability-card p,
+                .home-solution-card p {
+                    line-height: 1.7;
+                    font-size: 14px;
+                    overflow-wrap: anywhere;
+                }
+
+                .home-solutions-heading {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                    gap: 20px;
+                    flex-wrap: wrap;
+                    margin-bottom: 28px;
+                }
+
+                .home-solution-card {
+                    padding: 23px;
+                    display: block;
+                    min-width: 0;
+                }
+
+                .home-solution-card h3 {
+                    font-size: 20px;
+                    color: #123762;
+                    margin: 18px 0 8px;
+                    overflow-wrap: anywhere;
+                }
+
+                .home-network-grid {
+                    display: grid;
+                    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                    gap: 36px;
+                    align-items: center;
+                }
+
+                .home-network-copy {
+                    min-width: 0;
+                }
+
+                .home-network-copy h2 {
+                    margin: 14px 0;
+                }
+
+                .home-network-copy p {
+                    line-height: 1.8;
+                }
+
+                .home-network-actions {
+                    display: flex;
+                    gap: 12px;
+                    flex-wrap: wrap;
+                    margin-top: 20px;
+                }
+
+                .home-evidence-card {
+                    padding: 24px;
+                    background: #f7faff;
+                    min-width: 0;
+                }
+
+                .home-evidence-header {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 10px;
+                    align-items: center;
+                }
+
+                .home-evidence-step {
+                    display: flex;
+                    gap: 14px;
+                    align-items: center;
+                    padding: 18px 0;
+                }
+
+                .home-evidence-step:last-child {
+                    border-bottom: 0 !important;
+                }
+
+                .home-evidence-step-label {
+                    font-size: 14px;
+                    color: #254668;
+                    overflow-wrap: anywhere;
+                }
+
+                .home-cta-section {
+                    padding-top: 10px;
+                }
+
+                .home-cta {
+                    background: #014AAC;
+                    border-radius: 28px;
+                    padding: 42px clamp(24px, 5vw, 60px);
+                    color: white;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 25px;
+                    flex-wrap: wrap;
+                }
+
+                .home-cta-copy {
+                    flex: 1 1 300px;
+                    min-width: 0;
+                }
+
+                .home-cta h2 {
+                    font-size: clamp(28px, 4vw, 42px);
+                    font-weight: 800;
+                    letter-spacing: -.03em;
+                    line-height: 1.2;
+                    margin: 12px 0;
+                    overflow-wrap: anywhere;
+                }
+
+                .home-cta-copy p {
+                    color: #d5e3f5;
+                    max-width: 650px;
+                    line-height: 1.7;
+                }
+
+                .home-cta > .btn {
+                    flex-shrink: 0;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                    min-height: 46px;
+                }
+
+                @media (max-width: 1024px) {
+                    .home-hero {
+                        padding: 60px 0 48px;
+                    }
+
+                    .home-hero-grid {
+                        grid-template-columns:
+                            minmax(0, 1fr)
+                            minmax(0, 0.9fr);
+                        gap: 28px;
+                    }
+
+                    .home-market-visual {
+                        padding: 20px;
+                    }
+
+                    .home-network-grid {
+                        gap: 24px;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .home-hero {
+                        padding: 42px 0 36px;
+                    }
+
+                    .home-hero-grid {
+                        grid-template-columns: minmax(0, 1fr);
+                        gap: 28px;
+                    }
+
+                    .home-hero-copy .h1 {
+                        font-size: clamp(2.15rem, 9vw, 3.25rem);
+                        line-height: 1.12;
+                        margin: 18px 0;
+                    }
+
+                    .home-hero-description {
+                        font-size: 16px;
+                        line-height: 1.7;
+                    }
+
+                    .home-hero-actions {
+                        gap: 10px;
+                        margin-top: 22px;
+                    }
+
+                    .home-hero-actions .btn {
+                        min-height: 48px;
+                        justify-content: center;
+                    }
+
+                    .home-trust-note {
+                        margin-top: 18px;
+                        font-size: 12px;
+                    }
+
+                    .home-market-visual {
+                        min-height: 0;
+                        padding: 18px;
+                        border-radius: 22px;
+                    }
+
+                    .home-market-header h3 {
+                        font-size: 20px;
+                    }
+
+                    .home-market-chart {
+                        margin-top: 18px;
+                    }
+
+                    .home-workflow {
+                        gap: 7px;
+                    }
+
+                    .home-workflow-item {
+                        padding: 10px;
+                    }
+
+                    .home-workflow-title {
+                        font-size: 13px;
+                    }
+
+                    .home-kpi-section {
+                        padding-bottom: 28px;
+                    }
+
+                    .home-kpis {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        gap: 10px;
+                    }
+
+                    .home-kpi-card {
+                        padding: 15px;
+                    }
+
+                    .home-kpi-value {
+                        font-size: clamp(22px, 7vw, 30px);
+                    }
+
+                    .home-kpi-label {
+                        font-size: 14px;
+                    }
+
+                    .home-kpi-note {
+                        font-size: 12px;
+                    }
+
+                    .home-section {
+                        padding-top: 42px;
+                        padding-bottom: 42px;
+                    }
+
+                    .home-section-intro {
+                        margin-bottom: 24px;
+                    }
+
+                    .home-section-intro h2 {
+                        font-size: clamp(1.65rem, 6vw, 2.2rem);
+                        line-height: 1.2;
+                    }
+
+                    .home-section-intro p {
+                        font-size: 14px;
+                    }
+
+                    .home-capabilities,
+                    .home-solutions {
+                        grid-template-columns: minmax(0, 1fr);
+                    }
+
+                    .home-capability-card {
+                        padding: 20px;
+                    }
+
+                    .home-capability-card h3 {
+                        margin-top: 15px;
+                    }
+
+                    .home-solutions-heading {
+                        align-items: flex-start;
+                        gap: 14px;
+                        margin-bottom: 22px;
+                    }
+
+                    .home-solutions-heading h2 {
+                        font-size: clamp(1.65rem, 6vw, 2.2rem);
+                        line-height: 1.2;
+                    }
+
+                    .home-solution-card {
+                        padding: 19px;
+                    }
+
+                    .home-solution-card h3 {
+                        margin-top: 14px;
+                    }
+
+                    .home-network-grid {
+                        grid-template-columns: minmax(0, 1fr);
+                        gap: 24px;
+                    }
+
+                    .home-network-copy h2 {
+                        font-size: clamp(1.65rem, 6vw, 2.2rem);
+                        line-height: 1.2;
+                    }
+
+                    .home-network-copy p {
+                        font-size: 14px;
+                    }
+
+                    .home-evidence-card {
+                        padding: 18px;
+                    }
+
+                    .home-evidence-header {
+                        align-items: flex-start;
+                        flex-wrap: wrap;
+                    }
+
+                    .home-evidence-step {
+                        padding: 15px 0;
+                    }
+
+                    .home-cta {
+                        padding: 28px 20px;
+                        border-radius: 22px;
+                        gap: 18px;
+                    }
+
+                    .home-cta h2 {
+                        font-size: clamp(25px, 7vw, 34px);
+                        line-height: 1.2;
+                    }
+
+                    .home-cta-copy p {
+                        font-size: 14px;
+                    }
+
+                    .home-cta > .btn {
+                        width: 100%;
+                        text-align: center;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .home-hero {
+                        padding: 32px 0 28px;
+                    }
+
+                    .home-hero-grid {
+                        gap: 24px;
+                    }
+
+                    .home-hero-copy .h1 {
+                        font-size: clamp(2rem, 9vw, 2.6rem);
+                    }
+
+                    .home-hero-actions {
+                        flex-direction: column;
+                        align-items: stretch;
+                    }
+
+                    .home-hero-actions .btn {
+                        width: 100%;
+                    }
+
+                    .home-market-visual {
+                        padding: 14px;
+                    }
+
+                    .home-market-header {
+                        align-items: flex-start;
+                    }
+
+                    .home-market-header small {
+                        font-size: 10px;
+                    }
+
+                    .home-market-header h3 {
+                        font-size: 18px;
+                    }
+
+                    .home-market-visual .sample-label {
+                        font-size: 9px;
+                        padding: 6px 7px;
+                    }
+
+                    .home-workflow {
+                        gap: 6px;
+                    }
+
+                    .home-workflow-item {
+                        padding: 8px;
+                        border-radius: 10px;
+                    }
+
+                    .home-workflow-title {
+                        font-size: 12px;
+                    }
+
+                    .home-chart-caption {
+                        font-size: 10px;
+                    }
+
+                    .home-kpis {
+                        gap: 8px;
+                    }
+
+                    .home-kpi-card {
+                        padding: 12px;
+                    }
+
+                    .home-kpi-value {
+                        font-size: clamp(21px, 7vw, 27px);
+                    }
+
+                    .home-kpi-label {
+                        font-size: 13px;
+                        line-height: 1.4;
+                    }
+
+                    .home-kpi-note {
+                        font-size: 11px;
+                    }
+
+                    .home-section {
+                        padding-top: 36px;
+                        padding-bottom: 36px;
+                    }
+
+                    .home-solutions-heading {
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+
+                    .home-evidence-step {
+                        gap: 10px;
+                    }
+
+                    .home-evidence-step-label {
+                        font-size: 13px;
+                    }
+
+                    .home-cta {
+                        padding: 24px 17px;
+                    }
+
+                    .home-cta h2 {
+                        font-size: 26px;
+                    }
+                }
+
+                @media (max-width: 350px) {
+                    .home-market-visual {
+                        padding: 12px;
+                    }
+
+                    .home-market-header {
+                        gap: 6px;
+                    }
+
+                    .home-market-visual .sample-label {
+                        font-size: 8px;
+                        padding: 5px;
+                    }
+
+                    .home-workflow-item {
+                        padding: 7px 5px;
+                    }
+
+                    .home-workflow-title {
+                        font-size: 11px;
+                    }
+
+                    .home-kpi-card {
+                        padding: 10px;
+                    }
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    .home-hero *,
+                    .home-market-visual * {
+                        animation: none !important;
+                        transition: none !important;
+                    }
+                }
+            `}</style>
+
+            {/* HERO SECTION */}
+
+            <section className="line-art home-hero">
+                <div className="container home-hero-grid">
+                    <div className="home-hero-copy">
                         <div
                             className="eyebrow"
                             style={{
@@ -167,46 +826,26 @@ export default async function Home() {
                                     width: 26,
                                     height: 2,
                                     background: "#ffbf00",
+                                    flexShrink: 0,
                                 }}
                             />
-
                             Independent dairy market intelligence
                         </div>
 
-                        <h1
-                            className="h1"
-                            style={{
-                                margin: "22px 0",
-                                maxWidth: 700,
-                            }}
-                        >
+                        <h1 className="h1">
                             Clearer signals for a{" "}
                             <span style={{ color: "#014AAC" }}>
                                 complex dairy market.
                             </span>
                         </h1>
 
-                        <p
-                            style={{
-                                fontSize: 18,
-                                lineHeight: 1.8,
-                                color: "#526783",
-                                maxWidth: 600,
-                            }}
-                        >
+                        <p className="home-hero-description">
                             A research-led platform concept connecting price
                             intelligence, demand and supply analysis, and state-level
                             evidence for India's dairy value chain.
                         </p>
 
-                        <div
-                            style={{
-                                display: "flex",
-                                gap: 12,
-                                flexWrap: "wrap",
-                                marginTop: 30,
-                            }}
-                        >
+                        <div className="home-hero-actions">
                             <Link className="btn btn-amber" href="/start-now">
                                 Start now <ArrowUpRight size={17} />
                             </Link>
@@ -216,44 +855,26 @@ export default async function Home() {
                             </Link>
                         </div>
 
-                        <div
-                            style={{
-                                marginTop: 25,
-                                fontSize: 12,
-                                color: "#63758d",
-                            }}
-                        >
+                        <div className="home-trust-note">
                             <CheckCircle2
                                 size={14}
                                 style={{
                                     display: "inline",
                                     marginRight: 6,
                                     color: "#014AAC",
+                                    verticalAlign: "middle",
                                 }}
                             />
-
                             Transparent methods · Evidence-led · Sample data clearly
                             labelled
                         </div>
                     </div>
 
-                    {/* Market intelligence visual */}
+                    {/* MARKET INTELLIGENCE VISUAL */}
 
-                    <div
-                        className="drift"
-                        style={{
-                            minHeight: 360,
-                            position: "relative",
-                            borderRadius: 30,
-                            background: "linear-gradient(145deg, #014AAC, #0b3471)",
-                            padding: 24,
-                            overflow: "hidden",
-                            boxShadow: "0 28px 65px #014aac30",
-                        }}
-                    >
-                        {/* Grid background */}
-
+                    <div className="drift home-market-visual">
                         <div
+                            aria-hidden="true"
                             style={{
                                 position: "absolute",
                                 inset: 0,
@@ -261,20 +882,11 @@ export default async function Home() {
                                 backgroundImage:
                                     "linear-gradient(#ffffff30 1px, transparent 1px), linear-gradient(90deg, #ffffff30 1px, transparent 1px)",
                                 backgroundSize: "32px 32px",
+                                pointerEvents: "none",
                             }}
                         />
 
-                        {/* Visual header */}
-
-                        <div
-                            style={{
-                                position: "relative",
-                                color: "white",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                            }}
-                        >
+                        <div className="home-market-header">
                             <div>
                                 <small
                                     style={{
@@ -285,45 +897,23 @@ export default async function Home() {
                                     MARKET SIGNALS
                                 </small>
 
-                                <h3
-                                    style={{
-                                        fontSize: 23,
-                                        margin: "8px 0",
-                                    }}
-                                >
-                                    Dairy intelligence
-                                </h3>
+                                <h3>Dairy intelligence</h3>
                             </div>
 
-                            <span
-                                style={{
-                                    background: "#ffbf00",
-                                    color: "#172033",
-                                    padding: "7px 10px",
-                                    borderRadius: 8,
-                                    fontSize: 11,
-                                    fontWeight: 800,
-                                }}
-                            >
+                            <span className="sample-label">
                                 SAMPLE UI
                             </span>
                         </div>
 
-                        {/* Illustrative trend chart */}
-
                         <svg
+                            className="home-market-chart"
                             viewBox="0 0 460 200"
                             role="img"
                             aria-label="Illustrative market trend lines"
-                            style={{
-                                position: "relative",
-                                width: "100%",
-                                marginTop: 26,
-                            }}
                         >
                             <defs>
                                 <linearGradient
-                                    id="fill"
+                                    id="home-chart-fill"
                                     x1="0"
                                     x2="0"
                                     y1="0"
@@ -356,7 +946,7 @@ export default async function Home() {
 
                             <path
                                 d="M0 148 C35 130 42 154 82 113 S135 126 168 92 S220 112 252 72 S305 96 335 53 S405 70 460 25 L460 200 L0 200Z"
-                                fill="url(#fill)"
+                                fill="url(#home-chart-fill)"
                             />
 
                             <path
@@ -376,17 +966,7 @@ export default async function Home() {
                             />
                         </svg>
 
-                        {/* Workflow stages */}
-
-                        <div
-                            style={{
-                                position: "relative",
-                                display: "grid",
-                                gridTemplateColumns: "repeat(3, 1fr)",
-                                gap: 10,
-                                marginTop: 10,
-                            }}
-                        >
+                        <div className="home-workflow">
                             {[
                                 ["01", "Observe"],
                                 ["02", "Validate"],
@@ -394,97 +974,49 @@ export default async function Home() {
                             ].map(([number, title]) => (
                                 <div
                                     key={number}
-                                    style={{
-                                        border: "1px solid #ffffff2a",
-                                        background: "#ffffff10",
-                                        borderRadius: 13,
-                                        padding: 12,
-                                        color: "white",
-                                    }}
+                                    className="home-workflow-item"
                                 >
                                     <small style={{ color: "#ffbf00" }}>
                                         {number}
                                     </small>
 
-                                    <div
-                                        style={{
-                                            fontWeight: 700,
-                                            marginTop: 5,
-                                        }}
-                                    >
+                                    <div className="home-workflow-title">
                                         {title}
                                     </div>
                                 </div>
                             ))}
                         </div>
 
-                        <p
-                            style={{
-                                position: "relative",
-                                fontSize: 11,
-                                color: "#d5e3f5",
-                                marginBottom: 0,
-                            }}
-                        >
+                        <p className="home-chart-caption">
                             Illustrative visual only · no live price observations
                         </p>
                     </div>
                 </div>
             </section>
 
-            {/* ================================================
-          KPI SECTION
-      ================================================ */}
+            {/* KPI SECTION */}
 
-            <section
-                style={{
-                    padding: "0 0 35px",
-                    marginTop: -1,
-                    background: "#f7faff",
-                }}
-            >
-                <div
-                    className="container"
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-                        gap: 14,
-                    }}
-                >
+            <section className="home-kpi-section">
+                <div className="container home-kpis">
                     {(Array.isArray(kpis) ? kpis : defaultKpis).map(
                         (k: any) => (
                             <div
                                 key={k.label}
-                                className="card"
-                                style={{
-                                    padding: 22,
-                                    borderRadius: 16,
-                                }}
+                                className="card home-kpi-card"
                             >
-                                <div
-                                    style={{
-                                        fontSize: 30,
-                                        fontWeight: 850,
-                                        color: "#014AAC",
-                                    }}
-                                >
+                                <div className="home-kpi-value">
                                     {Number(k.value).toLocaleString("en-IN")}
                                     {k.label === "Pilot states" ||
-                                        k.label === "Researchers"
+                                    k.label === "Researchers"
                                         ? "+"
                                         : ""}
                                 </div>
 
-                                <div
-                                    style={{
-                                        fontWeight: 750,
-                                        marginTop: 5,
-                                    }}
-                                >
+                                <div className="home-kpi-label">
                                     {k.label}
                                 </div>
 
-                                <small className="muted">
+                                <small className="muted home-kpi-note">
                                     {k.note || "Sample concept value"}
                                 </small>
                             </div>
@@ -493,46 +1025,32 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* ================================================
-          CAPABILITIES SECTION
-      ================================================ */}
+            {/* CAPABILITIES SECTION */}
 
-            <section className="section">
+            <section className="section home-section">
                 <div className="container">
-                    <div
-                        style={{
-                            maxWidth: 680,
-                            marginBottom: 34,
-                        }}
-                    >
+                    <div className="home-section-intro">
                         <div className="eyebrow">One connected view</div>
 
-                        <h2
-                            className="h2"
-                            style={{ margin: "14px 0" }}
-                        >
+                        <h2 className="h2">
                             What we help the market understand
                         </h2>
 
-                        <p
-                            className="muted"
-                            style={{ lineHeight: 1.8 }}
-                        >
+                        <p className="muted">
                             Bring scattered observations into a consistent frame—so
                             users can understand what changed, where the evidence is
                             strong, and what still needs validation.
                         </p>
                     </div>
 
-                    <div className="grid-auto">
+                    <div className="grid-auto home-capabilities">
                         {cards.map((card) => {
                             const Icon = card.icon;
 
                             return (
                                 <div
                                     key={card.title}
-                                    className="card"
-                                    style={{ padding: 25 }}
+                                    className="card home-capability-card"
                                 >
                                     <span
                                         style={{
@@ -548,23 +1066,9 @@ export default async function Home() {
                                         <Icon size={23} />
                                     </span>
 
-                                    <h3
-                                        style={{
-                                            fontSize: 19,
-                                            color: "#123762",
-                                            margin: "20px 0 9px",
-                                        }}
-                                    >
-                                        {card.title}
-                                    </h3>
+                                    <h3>{card.title}</h3>
 
-                                    <p
-                                        className="muted"
-                                        style={{
-                                            lineHeight: 1.7,
-                                            fontSize: 14,
-                                        }}
-                                    >
+                                    <p className="muted">
                                         {card.desc}
                                     </p>
 
@@ -589,29 +1093,17 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* ================================================
-          SOLUTIONS SECTION
-      ================================================ */}
+            {/* SOLUTIONS SECTION */}
 
-            <section className="section section-soft">
+            <section className="section section-soft home-section">
                 <div className="container">
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "end",
-                            gap: 20,
-                            flexWrap: "wrap",
-                            marginBottom: 28,
-                        }}
-                    >
+                    <div className="home-solutions-heading">
                         <div>
-                            <div className="eyebrow">Research framework</div>
+                            <div className="eyebrow">
+                                Research framework
+                            </div>
 
-                            <h2
-                                className="h2"
-                                style={{ margin: "12px 0 0" }}
-                            >
+                            <h2 className="h2" style={{ margin: "12px 0 0" }}>
                                 Solutions built around decisions
                             </h2>
                         </div>
@@ -627,133 +1119,86 @@ export default async function Home() {
                         </Link>
                     </div>
 
-                    <div className="grid-auto">
-                        {displayedSolutions.map((solution: any, index: number) => (
-                            <Link
-                                href={`/solutions/${solution.slug}`}
-                                key={solution.slug}
-                                className="card"
-                                style={{
-                                    padding: 23,
-                                    display: "block",
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}
+                    <div className="grid-auto home-solutions">
+                        {displayedSolutions.map(
+                            (solution: any, index: number) => (
+                                <Link
+                                    href={`/solutions/${solution.slug}`}
+                                    key={solution.slug}
+                                    className="card home-solution-card"
                                 >
-                                    <span
+                                    <div
                                         style={{
-                                            fontSize: 12,
-                                            color: "#014AAC",
-                                            fontWeight: 800,
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            alignItems: "center",
+                                            gap: 8,
                                         }}
                                     >
-                                        {String(index + 1).padStart(2, "0")} / SOLUTION
-                                    </span>
+                                        <span
+                                            style={{
+                                                fontSize: 12,
+                                                color: "#014AAC",
+                                                fontWeight: 800,
+                                            }}
+                                        >
+                                            {String(index + 1).padStart(2, "0")} /
+                                            SOLUTION
+                                        </span>
 
-                                    <ArrowUpRight color="#014AAC" size={18} />
-                                </div>
+                                        <ArrowUpRight
+                                            color="#014AAC"
+                                            size={18}
+                                        />
+                                    </div>
 
-                                <h3
-                                    style={{
-                                        fontSize: 20,
-                                        color: "#123762",
-                                        margin: "18px 0 8px",
-                                    }}
-                                >
-                                    {solution.title}
-                                </h3>
+                                    <h3>{solution.title}</h3>
 
-                                <p
-                                    className="muted"
-                                    style={{
-                                        lineHeight: 1.7,
-                                        fontSize: 14,
-                                    }}
-                                >
-                                    {solution.shortDescription}
-                                </p>
-                            </Link>
-                        ))}
+                                    <p className="muted">
+                                        {solution.shortDescription}
+                                    </p>
+                                </Link>
+                            )
+                        )}
                     </div>
                 </div>
             </section>
 
-            {/* ================================================
-          RESEARCH NETWORK SECTION
-      ================================================ */}
+            {/* RESEARCH NETWORK SECTION */}
 
-            <section className="section">
-                <div
-                    className="container"
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: 36,
-                        alignItems: "center",
-                    }}
-                >
-                    <div>
-                        <div className="eyebrow">Research network</div>
+            <section className="section home-section">
+                <div className="container home-network-grid">
+                    <div className="home-network-copy">
+                        <div className="eyebrow">
+                            Research network
+                        </div>
 
-                        <h2
-                            className="h2"
-                            style={{ margin: "14px 0" }}
-                        >
+                        <h2 className="h2">
                             Local observations. Shared standards.
                         </h2>
 
-                        <p
-                            className="muted"
-                            style={{ lineHeight: 1.8 }}
-                        >
+                        <p className="muted">
                             The concept proposes a state-level network that can
                             structure recurring returns on milk supply, procurement,
                             prices, demand and market drivers. Coverage and
                             participation figures shown here are concept targets,
                             not verified operating claims.
                         </p>
-                        <div
-                            style={{
-                                display: "flex",
-                                gap: 12,
-                                flexWrap: "wrap",
-                                marginTop: 20,
-                            }}
-                        >
+
+                        <div className="home-network-actions">
                             <Link
                                 className="btn btn-primary"
                                 href="/company#research-network"
                             >
                                 Explore the network <ArrowRight size={16} />
                             </Link>
-
                         </div>
-
-
                     </div>
 
-                    {/* Evidence workflow card */}
+                    {/* EVIDENCE WORKFLOW CARD */}
 
-                    <div
-                        className="card"
-                        style={{
-                            padding: 24,
-                            background: "#f7faff",
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                gap: 10,
-                                alignItems: "center",
-                            }}
-                        >
+                    <div className="card home-evidence-card">
+                        <div className="home-evidence-header">
                             <b style={{ color: "#123762" }}>
                                 Evidence workflow
                             </b>
@@ -780,19 +1225,19 @@ export default async function Home() {
                         ].map((title, index) => (
                             <div
                                 key={title}
+                                className="home-evidence-step"
                                 style={{
-                                    display: "flex",
-                                    gap: 14,
-                                    alignItems: "center",
-                                    padding: "18px 0",
                                     borderBottom:
-                                        index === 3 ? 0 : "1px solid #e1eaf6",
+                                        index === 3
+                                            ? 0
+                                            : "1px solid #e1eaf6",
                                 }}
                             >
                                 <span
                                     style={{
                                         width: 32,
                                         height: 32,
+                                        minWidth: 32,
                                         borderRadius: 10,
                                         display: "grid",
                                         placeItems: "center",
@@ -805,12 +1250,7 @@ export default async function Home() {
                                     {index + 1}
                                 </span>
 
-                                <b
-                                    style={{
-                                        fontSize: 14,
-                                        color: "#254668",
-                                    }}
-                                >
+                                <b className="home-evidence-step-label">
                                     {title}
                                 </b>
                             </div>
@@ -819,29 +1259,11 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* ================================================
-          FINAL CALL TO ACTION
-      ================================================ */}
+            {/* FINAL CALL TO ACTION */}
 
-            <section
-                className="section"
-                style={{ paddingTop: 10 }}
-            >
-                <div
-                    className="container"
-                    style={{
-                        background: "#014AAC",
-                        borderRadius: 28,
-                        padding: "42px clamp(24px, 5vw, 60px)",
-                        color: "white",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: 25,
-                        flexWrap: "wrap",
-                    }}
-                >
-                    <div>
+            <section className="section home-section home-cta-section">
+                <div className="container home-cta">
+                    <div className="home-cta-copy">
                         <div
                             style={{
                                 fontSize: 12,
@@ -853,24 +1275,11 @@ export default async function Home() {
                             GET STARTED
                         </div>
 
-                        <h2
-                            style={{
-                                fontSize: clamp(28, 4, 42),
-                                fontWeight: 800,
-                                letterSpacing: "-.03em",
-                                margin: "12px 0",
-                            }}
-                        >
+                        <h2>
                             Start with the question you need to answer.
                         </h2>
 
-                        <p
-                            style={{
-                                color: "#d5e3f5",
-                                maxWidth: 650,
-                                lineHeight: 1.7,
-                            }}
-                        >
+                        <p>
                             Tell us which products, regions or decisions matter to
                             your organisation.
                         </p>
@@ -886,12 +1295,4 @@ export default async function Home() {
             </section>
         </>
     );
-}
-
-// --------------------------------------------------
-// Responsive CSS clamp helper
-// --------------------------------------------------
-
-function clamp(min: number, viewport: number, max: number) {
-    return `clamp(${min}px, ${viewport}vw, ${max}px)`;
 }

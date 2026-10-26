@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -33,6 +34,7 @@ export default function Header({
 }) {
     const [mobile, setMobile] = useState(false);
     const [menu, setMenu] = useState("");
+    const [mobileSolutions, setMobileSolutions] = useState(false);
 
     return (
         <header
@@ -66,6 +68,7 @@ export default function Header({
                     onClick={() => {
                         setMobile(false);
                         setMenu("");
+                        setMobileSolutions(false);
                     }}
                 >
                     <span
@@ -208,7 +211,10 @@ export default function Header({
                 <button
                     aria-label={mobile ? "Close navigation" : "Open navigation"}
                     aria-expanded={mobile}
-                    onClick={() => setMobile(!mobile)}
+                    onClick={() => {
+                        setMobile(!mobile);
+                        setMobileSolutions(false);
+                    }}
                     style={{
                         display: "none",
                         border: 0,
@@ -224,44 +230,210 @@ export default function Header({
 
             {mobile && (
                 <div
+                    className="mobile-menu"
                     style={{
                         padding: "8px 20px 22px",
                         background: "white",
                         display: "grid",
-                        gap: 15,
+                        gap: 10,
                         borderTop: "1px solid #e6edf6",
                     }}
                 >
-                    <Link
-                        onClick={() => setMobile(false)}
-                        href="/solutions/price-intelligence"
+                    {/* Mobile Solutions Dropdown */}
+                    <div
+                        style={{
+                            border: "1px solid #e2eaf4",
+                            borderRadius: 12,
+                            overflow: "hidden",
+                        }}
                     >
-                        Solutions
-                    </Link>
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setMobileSolutions(!mobileSolutions)
+                            }
+                            aria-expanded={mobileSolutions}
+                            style={{
+                                width: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                padding: "14px 15px",
+                                background: "#f7faff",
+                                border: "none",
+                                color: "#0c2b57",
+                                fontSize: 14,
+                                fontWeight: 700,
+                                textAlign: "left",
+                                cursor: "pointer",
+                            }}
+                        >
+                            Solutions
+                            <ChevronDown
+                                size={19}
+                                style={{
+                                    transition: "transform 0.2s ease",
+                                    transform: mobileSolutions
+                                        ? "rotate(180deg)"
+                                        : "rotate(0deg)",
+                                }}
+                            />
+                        </button>
 
-                    <Link
-                        onClick={() => setMobile(false)}
-                        href="/company"
+                        {mobileSolutions && (
+                            <div
+                                style={{
+                                    display: "grid",
+                                    gap: 0,
+                                    padding: "4px 10px 10px",
+                                    background: "#ffffff",
+                                }}
+                            >
+                                {solutions.map(([title, description], i) => (
+                                    <Link
+                                        key={title}
+                                        href={`/solutions/${solutionSlugs[i]}`}
+                                        onClick={() => {
+                                            setMobile(false);
+                                            setMobileSolutions(false);
+                                        }}
+                                        style={{
+                                            display: "block",
+                                            padding: "12px 10px",
+                                            borderBottom:
+                                                i === solutions.length - 1
+                                                    ? "none"
+                                                    : "1px solid #edf2f8",
+                                            textDecoration: "none",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                display: "block",
+                                                color: "#014AAC",
+                                                fontSize: 13,
+                                                fontWeight: 700,
+                                                marginBottom: 4,
+                                            }}
+                                        >
+                                            {title}
+                                        </span>
+                                        <span
+                                            style={{
+                                                display: "block",
+                                                color: "#64748b",
+                                                fontSize: 12,
+                                                lineHeight: 1.5,
+                                            }}
+                                        >
+                                            {description}
+                                        </span>
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={() =>
+                            setMobileSolutions(!mobileSolutions)
+                        }
+                        aria-expanded={mobileSolutions}
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            padding: "14px 15px",
+                            background: "#f7faff",
+                            border: "none",
+                            color: "#0c2b57",
+                            fontSize: 14,
+                            fontWeight: 700,
+                            textAlign: "left",
+                            cursor: "pointer",
+                        }}
                     >
-                        Company
-                    </Link>
+                        <Link
+                            className="mobile-nav-item"
+                            onClick={() => setMobile(false)}
+                            href="/company"
+                        >
+                            Company
+                        </Link>
+                    </button>
 
-                    <Link onClick={() => setMobile(false)} href="/read">
-                        Read
-                    </Link>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            setMobileSolutions(!mobileSolutions)
+                        }
+                        aria-expanded={mobileSolutions}
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            padding: "14px 15px",
+                            background: "#f7faff",
+                            border: "none",
+                            color: "#0c2b57",
+                            fontSize: 14,
+                            fontWeight: 700,
+                            textAlign: "left",
+                            cursor: "pointer",
+                        }}
+                    >
+                        <Link
+                            className="mobile-nav-item"
+                            onClick={() => setMobile(false)}
+                            href="/read"
+                        >
+                            Read
+                        </Link>
+                    </button>
 
-                    <Link onClick={() => setMobile(false)} href="/analysis">
-                        Analysis
-                    </Link>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            setMobileSolutions(!mobileSolutions)
+                        }
+                        aria-expanded={mobileSolutions}
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            padding: "14px 15px",
+                            background: "#f7faff",
+                            border: "none",
+                            color: "#0c2b57",
+                            fontSize: 14,
+                            fontWeight: 700,
+                            textAlign: "left",
+                            cursor: "pointer",
+                        }}
+                    >
+                        <Link
+                            className="mobile-nav-item"
+                            onClick={() => setMobile(false)}
+                            href="/analysis"
+                        >
+                            Analysis
+                        </Link>
+                    </button>
 
                     <Link
                         onClick={() => setMobile(false)}
                         href="/start-now"
-                        className="btn btn-amber"
+                        className="btn btn-amber mobile-start"
                         style={{
-                            justifySelf: "start",
-                            padding: "11px 18px",
+                            justifySelf: "stretch",
+                            textAlign: "center",
+                            padding: "13px 18px",
                             fontSize: 13,
+                            marginTop: 4,
                         }}
                     >
                         Start now <span>↗</span>
@@ -277,6 +449,27 @@ export default function Header({
 
                     .mobile-toggle {
                         display: block !important;
+                    }
+
+                    .mobile-nav-item {
+                        display: flex;
+                        align-items: center;
+                        width: 100%;
+                        min-height: 48px;
+                        box-sizing: border-box;
+                        padding: 13px 15px;
+                        border: 1px solid #e2eaf4;
+                        border-radius: 12px;
+                        background: #ffffff;
+                        color: #0c2b57;
+                        font-size: 14px;
+                        font-weight: 600;
+                        text-decoration: none;
+                    }
+
+                    .mobile-start {
+                        box-sizing: border-box;
+                        width: 100%;
                     }
                 }
             `}</style>
