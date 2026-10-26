@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  CLOSED
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String   @default("Administrator")
+  role         Role     @default(ADMIN)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ReadItem {
+  id                   String        @id @default(cuid())
+  title                String
+  slug                 String        @unique
+  metaDescription      String        @default("")
+  category             String        @default("Market Brief")
+  tags                 String[]      @default([])
+  featureImageUrl      String?
+  featureImagePublicId String?
+  pdfUrl               String?
+  pdfPublicId          String?
+  pdfSize              Int?
+  pdfMimeType          String?
+  content              Json
+  status               PublishStatus @default(DRAFT)
+  pinned               Boolean       @default(false)
+  sortOrder            Int           @default(0)
+  publishedAt          DateTime?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+}
+
+model AnalysisFile {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  description String        @default("")
+  category    String        @default("Market Data")
+  tags        String[]      @default([])
+  fileUrl     String?
+  publicId    String?
+  fileSize    Int?
+  mimeType    String?
+  sheets      Json
+  status      PublishStatus @default(DRAFT)
+  pinned      Boolean       @default(false)
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Solution {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  shortDescription String
+  content          Json
+  icon             String   @default("ChartNoAxesCombined")
+  visible          Boolean  @default(true)
+  sortOrder        Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model CompanyPage {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  excerpt   String   @default("")
+  content   Json
+  visible   Boolean  @default(true)
+  sortOrder Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model Partner {
+  id           String  @id @default(cuid())
+  name         String
+  description  String  @default("")
+  url          String?
+  logoUrl      String?
+  logoPublicId String?
+  sortOrder    Int     @default(0)
+}
+
+model SiteSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model Lead {
+  id               String     @id @default(cuid())
+  name             String
+  organisation     String
+  designation      String?
+  email            String
+  phone            String?
+  organisationType String
+  interests        String[]   @default([])
+  startingPoint    String?
+  message          String?
+  consent          Boolean    @default(false)
+  status           LeadStatus @default(NEW)
+  notes            String?
+  createdAt        DateTime   @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorEmail String
+  action     String
+  entity     String
+  entityId   String?
+  details    Json?
+  createdAt  DateTime @default(now())
+}
